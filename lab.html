@@ -1,0 +1,74 @@
+<html> <head><title>Assignment 01</title> <style>
+    body {
+    position: relative; }.alert {
+    display: flex;
+    justify-content: left;
+    margin-top: 30px;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #ffff00;
+    border: 1px solid #ccc;
+    border-radius: 6px; }
+    </style>
+    </head> <body><div class="wrap-container"> <div class="wrap-content"> <h1>Vocabulary Test</h1>
+    </div> <div class="wrap-content"> <div class="formSection"> <h2 id="word"></h2><br> <input type="text" id="guessInput" placeholder="Your Answer"><br> <button id="guessButton">Guess</button>
+    </div>
+    </div>
+    </div>
+    <script>
+    // Vocabulary words and definitions
+    const words = [ { word: 'Abundance', definition: 'A very large quantity of something'
+    },
+    { word: 'Conundrum', definition: 'A confusing or difficult problem'
+    },
+    { word: 'Serendipity', definition: 'The occurrence of events by 
+    chance in a happy or beneficial way' },
+    // Add more words and definitions here
+    ];
+    // Get random word and display it
+    function getRandomWord() {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    const randomWord = words[randomIndex];
+    return randomWord; }
+    // Display a new quiz
+    function displayNewQuiz() {
+    const wordElement = document.getElementById('word');
+    const guessButton = document.getElementById('guessButton');
+    const guessInput = document.getElementById('guessInput');
+    // Get random word and display it
+    const randomWord = getRandomWord();
+    wordElement.textContent = randomWord.definition;
+    guessInput.value = '';
+    // Add click event listener to the guess button
+    guessButton.addEventListener('click', function () {
+    const userGuess = guessInput.value;
+    if (userGuess.toLowerCase() === randomWord.word.toLowerCase()) {
+    showAlert('You are correct!', true);
+    } else {
+    showAlert('You are incorrect!', false);
+    }
+    });
+    }
+    // Show an alert with auto close
+    function showAlert(message, isCorrect) {
+    const alertBox = document.createElement('div');
+    alertBox.className = 'alert';
+    alertBox.textContent = message;
+    document.body.appendChild(alertBox);
+    // Close the alert after 3 seconds
+    setTimeout(function () {
+    alertBox.parentNode.removeChild(alertBox);
+    displayNewQuiz();
+    }, 3000);
+    }
+    // Start the initial quiz
+    displayNewQuiz();
+    </script>
+    </body>
+    </html>
